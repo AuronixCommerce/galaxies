@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // During migration: Firestore is server-managed. No direct reads or
+    // writes from client apps. Firebase Admin SDK bypasses these rules,
+    // so backend authorization and transaction validation are mandatory.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
